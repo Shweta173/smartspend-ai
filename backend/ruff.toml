@@ -1,0 +1,4 @@
+[lint]
+# SQLAlchemy filters need `== True` / `!= None` to build SQL expressions,
+# so the "use `is`" rules don't apply here.
+ignore = ["E711", "E712"]
