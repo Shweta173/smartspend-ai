@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode — clean white/cool-gray */
+    --background:    220 20% 97%;
+    --foreground:    224 71% 4%;
+    --card:          0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover:       0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary:       239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     220 14% 96%;
+    --secondary-foreground: 224 71% 10%;
+    --muted:         220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent:        220 14% 93%;
+    --accent-foreground: 224 71% 4%;
+    --destructive:   0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        220 13% 91%;
+    --input:         220 13% 91%;
+    --ring:          239 84% 67%;
+    --radius:        0.75rem;
+  }
+
+  .dark {
+    /* Dark mode — deep navy */
+    --background:    222 84% 5%;
+    --foreground:    213 31% 91%;
+    --card:          223 84% 8%;
+    --card-foreground: 213 31% 91%;
+    --popover:       223 84% 6%;
+    --popover-foreground: 213 31% 91%;
+    --primary:       239 84% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     222 70% 12%;
+    --secondary-foreground: 213 31% 85%;
+    --muted:         222 65% 11%;
+    --muted-foreground: 215 20% 55%;
+    --accent:        222 70% 14%;
+    --accent-foreground: 213 31% 91%;
+    --destructive:   0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        222 55% 18%;
+    --input:         222 55% 18%;
+    --ring:          239 84% 70%;
+    --radius:        0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+@layer components {
+  /* Glass card */
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply bg-card border border-border rounded-2xl p-5 transition-all duration-200 hover:shadow-card-md;
+  }
+
+  /* Number formatting */
+  .amount {
+    @apply font-mono tabular-nums;
+  }
+
+  /* Positive / negative amounts */
+  .amount-positive { @apply text-income; }
+  .amount-negative { @apply text-expense; }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground
+           transition-all duration-150 cursor-pointer
+           hover:bg-accent hover:text-foreground;
+  }
+  .nav-item.active {
+    @apply bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary;
+  }
+
+  /* Page header */
+  .page-title {
+    @apply text-2xl font-bold tracking-tight text-foreground;
+  }
+  .page-subtitle {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply rounded-xl bg-gradient-to-r from-muted via-muted/70 to-muted bg-[length:200%_100%] animate-shimmer;
+  }
+
+  /* Badge variants */
+  .badge-income    { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-600 dark:text-green-400; }
+  .badge-expense   { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-500; }
+  .badge-transfer  { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-500; }
+  .badge-anomaly   { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400; }
+}
+
+/* Chart tooltip override */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  @apply !bg-popover !border-border !rounded-xl !shadow-card-lg;
+}
+
+/* Custom focus ring */
+*:focus-visible {
+  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
